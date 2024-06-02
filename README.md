@@ -1,5 +1,7 @@
 # CrewAI Health Assistant
 
+> **Note:** This is the description of the assignment, refer to CONFIG.md for installing dependencies and LLMs for the assignment, refer to ACKNOWLEDGMENT.md for my acknowledgments 😊
+
 ## Description
 
 This project sets up a crew of agents using the CrewAI framework to create a health assistant. The health assistant takes a sample blood test report, analyzes it, searches the internet for articles tailored to the person's health needs based on the blood test results, and finally provides health recommendations along with relevant article links.
