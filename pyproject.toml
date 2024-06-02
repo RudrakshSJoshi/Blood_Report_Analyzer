@@ -1,25 +1,21 @@
 [tool.poetry]
-name = "trip-planner-yt"
+name = "cold-outreach-crewai"
 version = "0.1.0"
-description = "Simple ai trip planner"
-authors = ["Joao Moura, Brandon Hancock"]
+description = "Send personalized cold outreach emails to a list of leads."
+authors = ["bhancock_ai <brandon@brandonhancock.io>", "João Moura <joaomdmoura@mgail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.10.0,<3.12"
-crewai = "0.1.24"
-unstructured = '==0.10.25'
-pyowm = '3.3.0'
-python-dotenv = "1.0.0"
-langchain-openai = "^0.0.5"
-pymupdf = "^1.24.5"
-groq = "^0.8.0"
-pypdf = "^4.2.0"
+crewai = {extras = ["tools"], version = "^0.22.5"}
+pydantic = "^2.6.3"
+load-dotenv = "^0.1.0"
+crewai-tools = "^0.0.15"
+langchain-groq = "^0.0.1"
 tabula-py = "^2.9.3"
-jpype1 = "^1.5.0"
+pandas = "^2.2.2"
 bert-extractive-summarizer = "^0.10.1"
 torch = "^2.3.0"
-torchvision = "^0.18.0"
-torchaudio = "^2.3.0"
+jpype1 = "^1.5.0"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md

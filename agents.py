@@ -1,106 +1,65 @@
 from crewai import Agent
 from textwrap import dedent
-
+import os
 from tools.search_tools import SearchTools
 from tools.summarise_tools import SummariseTools
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 
-"""
-Creating Agents Cheat Sheet:
-- Think like a boss. Work backwards from the goal and think which employee 
-    you need to hire to get the job done.
-- Define the Captain of the crew who orient the other agents towards the goal. 
-- Define which experts the captain needs to communicate with and delegate tasks to.
-    Build a top down structure of the crew.
-
-Goal:
-- Create a detailed analysis of blodd report provided by the user
-        -must convert the report to text, and then summarise it, and then look up on the internet for abnormalities, should provide relevant health recommendations and links to articles
-
-Captain/Manager/Boss:
-- Expert Blood Analyser
-
-Employees/Experts to hire:
-- Text Summarisation Expert
-- Expert Health Recommender
-
-
-Notes:
-- Agents should be results driven and have a clear goal in mind
-- Role is their job title
-- Goals should actionable
-- Backstory should be their resume
-"""
-
-llm = ChatOpenAI(
-    model="crewai-mistral",
-    base_url="http://localhost:11434/v1"
+llm=ChatGroq(
+    api_key=os.getenv("GROQ_API_KEY"),
+    model="mixtral-8x7b-32768",
 )
-
 
 class BloodAgents:
     def __init__(self):
         pass
 
-    def expert_blood_analyser(self):
+    def blood_report_summariser_expert(self):
         return Agent(
-            role="Expert Blood Analyser",
-            backstory=dedent(
-                f"""Expert in blood report analysis.
-                I have decades of expereince making reports on people's blood reports.
-                I tell people whether they are okay or have abnormalities in their blood, 
-                and then provide health recommendations.
-                """),
-            goal=dedent(f"""
-                        Create a health recommendation report,
-                        must include links to articles for each abnormality found in blood test report and 
-                        ways to treat those abnormalities
-                        """),
-            tools=[
-                SearchTools.search_internet,
-                SummariseTools.summarize_text
-            ],
-            verbose=True,
-            max_iter=1,
-            llm=llm
-        )
+            role="Blood Report Summarization Expert",
+            goal=f"""
+                Summarise the blood report provided by finding all normal and abnormal values from the blood report
 
-    def text_summariser_expert(self):
-        return Agent(
-            role="Text Summarisation Expert",
-            backstory=dedent(
-                f"""Expert at Summarising Text and extracting important details from the text"""),
-            goal=dedent(
-                f"""
-                Select relevant information from text related to blood analysis and 
-                then summarise it and show it to the user in a brief format
-                """),
-            tools=[SummariseTools.summarize_text],
-            verbose=True,
-            max_iter=1,
-            llm=llm
-        )
-
-    def expert_health_recommender(self):
-        return Agent(
-            role="Expert Health Detector",
-            backstory=dedent(
-                f"""
-                Knowledgeable health recommender with extensive information
-                about blood, its normal ranges, its abnormal ranges, 
-                health recommendations to treat blood abnormalities, 
-                links on articles present on the internet regarding such abnormalities and reasons behind blood abnormalities
-                """),
-            goal=dedent(
-                f"""
-                provide a summarised report that provides health recommendations and 
-                links to articles on the internet for abnormalities detected in teh blood report
-                """),
+                Given a blood report that contains various categories of blood along with their values, the reference range may or may not be given,
+                detect whether the category value lies in the reference range, if provided, or verify from the internet, and then finally
+                create a summarised report that tells all the values that are normal in the blood and all the values that are abnormal.
+                """,
+            backstory="""
+                Your role as a Blood Report Summarizer involves providing comprehensive information 
+                about a person's blood, covering both normal and abnormal values detected in their blood 
+                test report. You're tasked with relaying all relevant details to aid in understanding 
+                the individual's blood report.
+                """,
             tools=[
                 SearchTools.search_internet,
                 SummariseTools.summarize_text
                 ],
             verbose=True,
-            max_iter=1,
-            llm=llm
+            llm=llm,
+            max_iter=2,
+        )
+
+    def expert_health_recommender(self):
+        return Agent(
+            role="Expert Health Recommender",
+            goal=f"""
+                Your objective is to furnish a detailed summary encompassing both normal and abnormal 
+                values found in the blood report. This summary should also include health recommendations 
+                tailored to address any abnormalities detected, along with links to articles providing 
+                further insights and explanations.
+                """,
+            backstory=f"""
+                As an Expert health Recommender you understand blood reports and figure out 
+                which values are normal and which are not. You know about different types of blood 
+                measurements and the ranges they should fall within. If the report doesn't give the 
+                ranges, you'll find them online. Your main aim is to make a summary that shows all 
+                the normal and abnormal values.
+                """,
+            tools=[
+                SearchTools.search_internet,
+                SummariseTools.summarize_text
+                ],
+            verbose=True,
+            max_iter=2,
+            llm = llm,
         )

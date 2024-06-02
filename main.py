@@ -60,36 +60,27 @@ class BloodCrew:
         tasks = BloodTasks()
 
         # Define your custom agents and tasks here
-        expert_blood_analyser = agents.expert_blood_analyser()
-        text_summariser_expert = agents.text_summariser_expert()
+        blood_report_summariser_expert = agents.blood_report_summariser_expert()
         expert_health_recommender = agents.expert_health_recommender()
 
-        # Custom tasks include agent name and variables as input
         blood_analysis = tasks.blood_analysis(
-            expert_blood_analyser,
+            blood_report_summariser_expert,
             self.text
         )
 
-        report_summariser = tasks.report_summariser(
-            text_summariser_expert,
-            self.text
-        )
-
-        health_recommendation = tasks.health_recommendation(
+        health_checker = tasks.health_checker(
             expert_health_recommender,
             self.text
         )
 
         # Define your custom crew here
         crew = Crew(
-            agents=[expert_blood_analyser,
-                    text_summariser_expert,
+            agents=[blood_report_summariser_expert,
                     expert_health_recommender
                     ],
             tasks=[
                 blood_analysis,
-                report_summariser,
-                health_recommendation
+                health_checker
             ],
             process=Process.sequential,
             verbose=True,
@@ -124,6 +115,7 @@ if __name__ == "__main__":
 
             if tables:
                 blood_report_text = convert_table_to_text(tables)
+                print(blood_report_text)
                 valid_input = True
             else:
                 print("Failed to extract tables from the PDF. Please try again.")
