@@ -16,7 +16,7 @@ This project sets up a crew of agents using the CrewAI framework to create a hea
 
 ## Code Description
 
-This project contains 3 agents, one as the captain and two others as workers. The captain is <span style="color:blue">Expert Blood Analyser</span>, and the two workers are <span style="color:blue">Text Summarisation Expert</span> and <span style="color:blue">Expert Health Recommender</span>.
+This project contains 3 agents, one as the captain and two others as workers. The captain is **Expert Blood Analyser**, and the two workers are **Text Summarisation Expert** and **Expert Health Recommender**.
 
 Their duties are as follows:-
 
@@ -37,3 +37,16 @@ Their duties are as follows:-
 - **Role**: Expert Health Detector
 - **Backstory**: Knowledgeable health recommender with extensive information about blood, its normal ranges, its abnormal ranges, health recommendations to treat blood abnormalities, links on articles present on the internet regarding such abnormalities and reasons behind blood abnormalities.
 - **Goal**: Provide a summarised report that provides health recommendations and links to articles on the internet for abnormalities detected in the blood report.
+
+## IMPORTANT POINTS
+
+1. **CrewAI Usage and Cost**: CrewAI is well suited for OpenAI, specifically ChatGPT-3.5-Turbo and ChatGPT-4. However, it requires payment for each request made, potentially leading to high costs.
+
+2. **Issues with Local LLMs**: Local LLMs like Llama2 from Ollama face consistent issues such as "Invalid Format: Missing 'Action Input:' after 'Action:'" and "Invalid Format: Missing 'Action Input:' after 'Thought:'", causing looping for users.
+
+3. **Performance of LLMs**: LLMs like Mistral 8x7B, Dolphin, and Mistral 7B Blend show better performance compared to other local LLMs. However, OpenAI models exceed in performance and provide better conclusions.
+
+4. **LLMs Used in the Project**: The project utilized two LLMs for testing, namely Llama2 and Mistral7B. Mistral7B outperformed Llama2. Setup information for both LLMs is included in CONFIG.md.
+
+5. **Compatibility with Text and PDFs**: The assignment works well with text and PDFs containing tables as blood reports, particularly on the first page. The code is designed to check only the first page, but it can be easily modified to check all pages using loops.
+

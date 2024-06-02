@@ -2,7 +2,6 @@ from crewai import Crew, Process, Agent, Task
 from textwrap import dedent
 from agents import BloodAgents
 from tasks import BloodTasks
-import fitz #PyMuPDF
 import tabula
 import pandas as pd
 
