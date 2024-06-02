@@ -16,33 +16,29 @@ poetry install --no-root
 poetry shell
 ```
 7. Change Interpreter Path to the path copied from above step.
-8. Install missing dependencies in activated environment using Terminal
-```bash
-poetry add bert-extractive-summarizer torch torchvision torchaudio langchain-openai tabula-py
-```
-9. In case of missing dependencies, all relevant information would be available on the internet, just use -> poetry add "the_library_name" to install it.
-10. To set up LLMs, first install [Ollama](https://ollama.com/)
-11. After that open terminal and enter the following
+8. To set up LLMs, first install [Ollama](https://ollama.com/) (Skip to Step 15 if you intend to use groq API)
+9. After that open terminal and enter the following
 ```bash
 ollama pull llama2
 ollama pull mistral
 ```
-12. The above steps will take time and space, which may cause time lag for some time
-13. To check whether LLMs are properly installed, write the following command
+10. The above steps will take time and space, which may cause time lag for some time
+11. To check whether LLMs are properly installed, write the following command
 ```bash
 ollama list
 ```
-14. The above should give you a list of installed LLMs
-15. In case of Windows, open git bash, linux users can just diirectly open terminal and enter the following commands on project folder terminal
+12. The above should give you a list of installed LLMs
+13. In case of Windows, open git bash, linux users can just diirectly open terminal and enter the following commands on project folder terminal
 ```bash
 chmod +x ./llm_configure/create-llama2-model-file.sh
 ./llm_configure/create-llama2-model-file.sh
 chmod +x ./llm_configure/create-mistral-model-file.sh
 ./llm_configure/create-mistral-model-file.sh
 ```
-16. This will allow your LLMs to be compatible with CrewAI.
-17. Now in agents.py file, you may change llm(line 35) by changing model to:
+14. This will allow your LLMs to be compatible with CrewAI.
+15. Now in agents.py file, you may change llm(line 35) by changing model to:
 a. crewai-mistral
 b. crewai-llama2
+c. any of groq LLMs (if you are using groq api), such as mixtral-8x7b-32768.
 based on your preference (I prefer mistral over llama2)
-18. Run main.py file and it should work
+16. Run main.py file and it should work
