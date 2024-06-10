@@ -16,27 +16,19 @@ This project sets up a crew of agents using the CrewAI framework to create a hea
 
 ## Code Description
 
-This project contains 3 agents, one as the captain and two others as workers. The captain is **Expert Blood Analyser**, and the two workers are **Text Summarisation Expert** and **Expert Health Recommender**.
-
-Their duties are as follows:-
+This project contains 2 agents specialized in different tasks:
 
 ### Expert Blood Analyser
 
 - **Role**: Expert Blood Analyser
-- **Backstory**: Expert in blood report analysis. I have decades of experience making reports on people's blood reports. I tell people whether they are okay or have abnormalities in their blood, and then provide health recommendations.
-- **Goal**: Create a health recommendation report, must include links to articles for each abnormality found in blood test report and ways to treat those abnormalities.
+- **Backstory**: Expert in blood report analysis. Decades of experience in providing comprehensive reports on blood tests. Determines whether blood values are within normal ranges and provides tailored health recommendations.
+- **Goal**: Summarize the blood report, identifying normal and abnormal values. Provide health recommendations and links to articles for each abnormality found.
 
 ### Text Summarisation Expert
 
 - **Role**: Text Summarisation Expert
-- **Backstory**: Expert at Summarising Text and extracting important details from the text.
-- **Goal**: Select relevant information from text related to blood analysis and then summarise it and show it to the user in a brief format.
-
-### Expert Health Detector
-
-- **Role**: Expert Health Detector
-- **Backstory**: Knowledgeable health recommender with extensive information about blood, its normal ranges, its abnormal ranges, health recommendations to treat blood abnormalities, links on articles present on the internet regarding such abnormalities and reasons behind blood abnormalities.
-- **Goal**: Provide a summarised report that provides health recommendations and links to articles on the internet for abnormalities detected in the blood report.
+- **Backstory**: Skilled in summarizing text and extracting essential details. Proficient at condensing information into concise formats.
+- **Goal**: Extract relevant information from the text related to blood analysis and summarize it in a brief format for the user.
 
 ## IMPORTANT POINTS
 
@@ -49,4 +41,3 @@ Their duties are as follows:-
 4. **LLMs Used in the Project**: The project utilized two LLMs for testing, namely Llama2 and Mistral7B. Mistral7B outperformed Llama2. Setup information for both LLMs is included in CONFIG.md.
 
 5. **Compatibility with Text and PDFs**: The assignment works well with text and PDFs containing tables as blood reports, particularly on the first page. The code is designed to check only the first page, but it can be easily modified to check all pages using loops.
-
